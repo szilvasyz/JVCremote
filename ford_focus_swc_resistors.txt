@@ -1,0 +1,153 @@
+Ford Focus SWC
+
+SWC+  ----[=R1=]--o--[=R2=]--o--[=R3=]--o--[=R4=]--o--[=R5=]--o--[=R6=]--+ 
+                  |          |          |          |          |          |
+                | o        | o        | o        | o        | o          |
+            S1 >|      S2 >|      S3 >|      S4 >|      S5 >|            |
+                | o        | o        | o        | o        | o          |
+                  |          |          |          |          |          |
+SWC-  ------------o----------o----------o----------o----------o----------+
+
+           Vol-       Vol+      Seek+      Seek-       Mode
+
+R1 = 54R		100R || 150R || 560R = 54R		47R + 6R8
+R2 = 93R		150R || 330R || 1000R = 93R		47R + 47R||2200R
+R3 = 154R		220R || 680R || 2200R = 154R
+R4 = 261R		 47R || 330R + 220R = 261R
+R5 = 475R		470R + 4R7 = 475R
+R6 = 4020R		6800R || 10kR || 560kR = 4018R
+
+Effective Resistances
+-open-	5057R
+Vol-	  54R
+Vol+	 147R
+Seek+	 301R
+Seek-	 562R
+Mode	1037R
+
+Calculated and real scale on 4096 steps with 3300R voltage divider
+Vol-	  54R	  66	   0
+Vol+	 147R	 175	  48
+Seek+	 301R	 342	 212
+Seek-	 562R	 596	 464
+Mode	1037R	 979	 847
+-next-  2200R	1638*	1417*
+-open-	5057R	2478	2353
+
+Calculated and real scale on 4096 steps with 1000R voltage divider
+Vol-	  54R	 210	39
+Vol+	 147R	 525	357
+Seek+	 301R	 947	785
+Seek-	 562R	1473	1331
+Mode	1037R	2085	1957
+-next-  2200R	2815*	2750*
+-open-	5057R	3419	3365
+
+Key split levels 3300R
+Vol-	  54R	  24	   0
+Vol+	 147R	 130	  48
+Seek+	 301R	 338	 212
+Seek-	 562R	 655	 464
+Mode	1037R	1132	 847
+-next-  2200R   1885*   1417*   
+-open-	5057R	    	2353
+
+Key split levels 1000R
+Vol-	  54R	 198	  39
+Vol+	 147R	 571	 357
+Seek+	 301R	1058	 785
+Seek-	 562R	1644	1331
+Mode	1037R	2353	1957
+-next-  2200R	3057*	2750*
+-open-	5057R	    	3365
+
+
+JVC codes
+
+JVC device code: 0x8F
+JVC commands:
+4: volume up
+5: volume down
+8: source
+13: sound (equalizer)
+14: mute
+18: radio seek up / pick up call / CD/USB next track
+19: radio seek down / pick up call / CD/USB prev track
+20: radio next / pick up call / USB next folder
+21: radio prev / pick up call / USB prev folder
+25: drop call
+26: error?
+
+
+
+
+
+Kenwood commands:
+0:	0
+1:	1
+2:	2
+3:	3
+4:	4
+5:	5
+6:	6
+7:	7
+8:	8
+9:	9
+10:	seek-/track-
+11: seek+/track+
+12: band-/folder-
+13: band+/folder+
+14: play/pause/enter
+15: direct input
+
+19: source/drop call
+20: vol+
+21: vol-
+22: attenuator/mute
+23: audio control
+
+28: source/drop call
+
+30: source/drop call
+31: source/drop call
+
+
+Kenwood/NEC
+
+https://auto.jofogas.hu/budapest/Kenwood_KDC_BT51U_auto_hifi_147889902.htm
+
+
+https://github.com/tsprlng/toyota-kenwood-adaptor
+https://www.instructables.com/Custom-Arduino-to-Keep-CAN-Steering-Wheel-Buttons-/
+https://init6.pomorze.pl/projects/kenwood_ford/
+https://www.sbprojects.net/knowledge/ir/nec.php
+https://www.angelfire.com/nd/maza/kenwood.html
+https://github.com/h1aji/arduino-swc
+
+
+
+
+Almera
+
+
+https://www.almeraownersclub.com/threads/steering-wheel-remote-on-an-after-market-radio.19035/
+
+None of the Nissan specific instructions look right for my 2000 Almera though many look tantalizingly close.
+
+Mine has 3 wires in the original remote connector, it looks like the green (pin 20) and green/white (pin 21) are power and green/orange (pin 22) is ground.
+
+Further up and past a connector these become red, yellow and blue wires respectively and from the interface instructions I suspect we should be using those wires rather than the green ones at the harness.
+
+The buttons on the remote are two groups wired in serial with resistors between them. Pressing a button shorts to ground so I guess the original head unit must work out what button was pressed from the voltage it can send out out through pin 20 or 21.
+
+From the interface instructions it looks like that works out what button was pressed by the voltage it can send out on it's white wire.
+
+Based on the instructions for other models and if I had to guess I'd say we need to put a 47ohm resistor at the end of one of the original power wires and an 150 ohm resitor on the other original power wire, connect the other ends of those resistors to the interface's white wire and then ground the original blue wire to the headunit harness ground.
+
+After that it *should* just be a case of wiring the interface to ground and 12v ignition power on the headunit harness, programming the interface then plugging in the interface jack plug to the headunit.
+
+At this point, though, I'm just guessing - I'm no electrician and without some confirmation I'd treat my opinion with a huge pinch of salt (and thick rubber gloves).
+
+I've mailed the manufacturer my guess at the setup and a schematic of the remote circuit, I'll keep you all informed of any reply.
+ 
+
